@@ -45,4 +45,10 @@ public class VideoFileLocationService {
                               .toList() ;
     }
 
+    public List<String> getAllVideoNamesByLesson(Long lessonId) {
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return videoRepository.findByLesson(lesson).stream().map(p -> p.getName())
+                                                            .toList();
+    }
 }

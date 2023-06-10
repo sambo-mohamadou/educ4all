@@ -1,6 +1,7 @@
 package com.poo2hibernate.educ4all.matiere;
 
 import com.poo2hibernate.educ4all.niveau.Niveau;
+import com.poo2hibernate.educ4all.niveau.NiveauRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -13,9 +14,11 @@ import java.util.Optional;
 @Service
 public class MatiereService {
     private final MatiereRepository matiereRepository;
+    private final NiveauRepository niveauRepository;
     @Autowired
-    public MatiereService(MatiereRepository matiereRepository) {
+    public MatiereService(MatiereRepository matiereRepository, NiveauRepository niveauRepository) {
         this.matiereRepository = matiereRepository;
+        this.niveauRepository = niveauRepository;
     }
 
     public List<Matiere> getMatieres() {
@@ -71,4 +74,11 @@ public class MatiereService {
     }
 
 
+    public List<Matiere> getMatieresByLevel(Long levelId) {
+        Niveau niveau = niveauRepository.findById(levelId)
+                .orElseThrow(() -> new IllegalStateException("This Level doesn't exist"));
+        return matiereRepository.findByLevel(
+                niveau
+        );
+    }
 }

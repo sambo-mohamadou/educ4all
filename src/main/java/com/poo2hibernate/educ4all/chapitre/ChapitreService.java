@@ -1,6 +1,7 @@
 package com.poo2hibernate.educ4all.chapitre;
 
 import com.poo2hibernate.educ4all.matiere.Matiere;
+import com.poo2hibernate.educ4all.matiere.MatiereRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -13,9 +14,11 @@ import java.util.Optional;
 @Service
 public class ChapitreService {
     private final ChapitreRepository chapitreRepository;
+    private final MatiereRepository matiereRepository;
     @Autowired
-    public ChapitreService(ChapitreRepository chapitreRepository) {
+    public ChapitreService(ChapitreRepository chapitreRepository, MatiereRepository matiereRepository) {
         this.chapitreRepository = chapitreRepository;
+        this.matiereRepository = matiereRepository;
     }
 
     public List<Chapitre> getChapters() {
@@ -66,5 +69,12 @@ public class ChapitreService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Chapitre> getChaptersByMatiere(Long matiereId) {
+        Matiere matiere = matiereRepository.findById(matiereId)
+                .orElseThrow(() -> new IllegalStateException("This Matiere doesn't exist"));
+
+        return chapitreRepository.findByMatiere(matiere);
     }
 }

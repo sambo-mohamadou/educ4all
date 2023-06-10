@@ -1,6 +1,7 @@
 package com.poo2hibernate.educ4all.lesson;
 
 import com.poo2hibernate.educ4all.chapitre.Chapitre;
+import com.poo2hibernate.educ4all.chapitre.ChapitreRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -13,10 +14,14 @@ import java.util.Optional;
 @Service
 public class LessonService {
     private final LessonRepository lessonRepository;
+    private final ChapitreRepository chapitreRepository;
+
     @Autowired
-    public LessonService(LessonRepository lessonRepository) {
+    public LessonService(LessonRepository lessonRepository, ChapitreRepository chapitreRepository) {
         this.lessonRepository = lessonRepository;
+        this.chapitreRepository = chapitreRepository;
     }
+
     public List<Lesson> getLessons() {
         return lessonRepository.findAll();
     }
@@ -65,5 +70,12 @@ public class LessonService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Lesson> getLessonsByChapter(Long chapitreId) {
+        Chapitre chapitre = chapitreRepository.findById(chapitreId)
+                .orElseThrow(() -> new IllegalStateException("This Lesson doesn't exist"));
+
+        return lessonRepository.findByChapitre(chapitre);
     }
 }

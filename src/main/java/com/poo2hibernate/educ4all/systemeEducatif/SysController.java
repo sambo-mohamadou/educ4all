@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @RestController
 @RequestMapping(path = "/educ4all/gestion/systeme")
 public class SysController {
@@ -18,13 +20,13 @@ public class SysController {
     @PostMapping(path = "/add")
     public void  registerNewSystem(@RequestBody Systeme systeme){sysService.addNewSystem(systeme);}
     @DeleteMapping(path = "/delete/{systemId}")
-    public void deleteSystem(@PathVariable("systemId") Long systemId){sysService.deleteSystem(systemId);}
+    public void deleteSystem(@PathVariable("systemId") String systemId){sysService.deleteSystem(parseLong(systemId));}
     @PutMapping(path = "/update/{systemId}")
     public void updateSystem(
-            @PathVariable("systemId") Long systemId,
+            @PathVariable("systemId") String systemId,
             @RequestParam(required = false) String nom,
             @RequestParam(required = false) String description){
 
-        sysService.updateSystem(systemId, nom, description);
+        sysService.updateSystem(parseLong(systemId), nom, description);
     }
 }

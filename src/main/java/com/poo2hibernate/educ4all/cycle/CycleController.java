@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @RestController
 @RequestMapping(path = "/educ4all/gestion/cycle")
 public class CycleController {
@@ -20,16 +22,16 @@ public class CycleController {
     @PostMapping(path = "/add")
     public void  registerNewCycle(@RequestBody Cycle cycle){cycleService.addNewCycle(cycle);}
     @DeleteMapping(path = "/delete/{cycleId}")
-    public void deleteCycle(@PathVariable("cycleId") Long cycleId){cycleService.deleteCycle(cycleId);}
+    public void deleteCycle(@PathVariable("cycleId") String cycleId){cycleService.deleteCycle(parseLong(cycleId));}
     @PutMapping(path = "/update/{cycleId}")
     public void updateCycle(
-            @PathVariable("cycleId") Long cycleId,
+            @PathVariable("cycleId") String cycleId,
             @RequestParam(required = false) String nom,
             @RequestParam(required = false) Short duree,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) SousSysteme sousSysteme){
 
-        cycleService.updateCycle(cycleId,nom,duree,description,sousSysteme);
+        cycleService.updateCycle(parseLong(cycleId),nom,duree,description,sousSysteme);
     }
 
 }

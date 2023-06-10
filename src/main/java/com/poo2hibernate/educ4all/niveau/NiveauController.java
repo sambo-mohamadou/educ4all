@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @RestController
 @RequestMapping(path = "/educ4all/gestion/niveau")
 public class NiveauController {
@@ -20,15 +22,15 @@ public class NiveauController {
     @PostMapping(path = "/add")
     public void  registerNewLevel(@RequestBody Niveau niveau){niveauService.addNewLevel(niveau);}
     @DeleteMapping(path = "/delete/{niveauId}")
-    public void deleteLevel(@PathVariable("niveauId") Long niveauId){niveauService.deleteLevel(niveauId);}
+    public void deleteLevel(@PathVariable("niveauId") String niveauId){niveauService.deleteLevel(parseLong(niveauId));}
     @PutMapping(path = "/update/{niveauId}")
     public void updateLevel(
-            @PathVariable("niveauId") Long niveauId,
+            @PathVariable("niveauId") String niveauId,
             @RequestParam(required = false) String nom,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) Cycle cycle){
 
-        niveauService.updateLevel(niveauId,nom,description,cycle);
+        niveauService.updateLevel(parseLong(niveauId),nom,description,cycle);
     }
 
 }

@@ -23,6 +23,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class CycleConfig {
     @Bean
@@ -78,6 +80,8 @@ public class CycleConfig {
             vid.saveVideo(content, "video.mp4", 1L);
 
             vid.findVideo("video.mp4");
+
+            List<Matiere> das = m.getMatieresByLevel(1L);
 
 
         };
