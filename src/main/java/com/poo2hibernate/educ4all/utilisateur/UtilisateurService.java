@@ -1,4 +1,4 @@
-package com.poo2hibernate.educ4all.eleve;
+package com.poo2hibernate.educ4all.utilisateur;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,33 +7,33 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EleveService {
-    private final EleveRepository eleveRepository;
+public class UtilisateurService {
+    private final UtilisateurRepository utilisateurRepository;
     @Autowired
-    public EleveService(EleveRepository eleveRepository) {
-        this.eleveRepository = eleveRepository;
+    public UtilisateurService(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
     }
 
-    public List<Eleve> getEleves() {
-        return (List<Eleve>) eleveRepository.findAll();
+    public List<Utilisateur> getUtilisateurs() {
+        return (List<Utilisateur>) utilisateurRepository.findAll();
     }
     
-    public Optional<Eleve> getEleve(Long id) {
-        return eleveRepository.findById(id);
+    public Optional<Utilisateur> getUtilisateur(Long id) {
+        return utilisateurRepository.findById(id);
     }
 
-    public void addNewEleve(Eleve eleve) {
-        eleveRepository.save(eleve);
+    public void addNewUtilisateur(Utilisateur utilisateur) {
+        utilisateurRepository.save(utilisateur);
     }
 
-    public void deleteEleve(Long eleveId) {
-        if (!eleveRepository.existsById(eleveId)) {
+    public void deleteUtilisateur(Long utilisateurId) {
+        if (!utilisateurRepository.existsById(utilisateurId)) {
             throw new IllegalStateException("Cet eleve n'existe pas");
         }
 
-        eleveRepository.deleteById(eleveId);
+        utilisateurRepository.deleteById(utilisateurId);
     }
 
-    public Optional<Eleve> findById(Long id) {
+    public Optional<Utilisateur> findById(Long id) {
     }
 }

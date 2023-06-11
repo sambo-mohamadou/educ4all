@@ -1,8 +1,5 @@
-package com.poo2hibernate.educ4all.eleve;
+package com.poo2hibernate.educ4all.utilisateur;
 
-import com.poo2hibernate.educ4all.chapitre.Chapitre;
-import com.poo2hibernate.educ4all.chapitre.ChapitreService;
-import com.poo2hibernate.educ4all.matiere.Matiere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +7,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/educ4all/gestion/eleve")
-public class EleveController {
-    private final EleveService eleveService;
+public class UtilisateurController {
+    private final UtilisateurService utilisateurService;
     @Autowired
-    public EleveController(EleveService eleveService) {
-        this.eleveService = eleveService;
+    public UtilisateurController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
     }
 
     @GetMapping
-    public List<Eleve> getEleves(){return eleveService.getEleves();}
+    public List<Utilisateur> getUtilisateurs(){return utilisateurService.getUtilisateurs();}
     @GetMapping(path = "/{id}")
-    public Eleve getEleveById(@PathVariable("id") Long id){return eleveService.findById(id).orElse(null);}
+    public Utilisateur getUtilisateurById(@PathVariable("id") Long id){return utilisateurService.findById(id).orElse(null);}
     @PostMapping(path = "/add")
-    public void  registerNewEleve(@RequestBody Eleve eleve){eleveService.addNewEleve(eleve);}
-    @DeleteMapping(path = "/delete/{eleveId}")
-    public void deleteEleve(@PathVariable("eleveId") Long eleveId){eleveService.deleteEleve(eleveId);}
+    public void  registerNewUtilisateur(@RequestBody Utilisateur utilisateur){
+        utilisateurService.addNewUtilisateur(utilisateur);}
+    @DeleteMapping(path = "/delete/{utilisateurId}")
+    public void deleteUtilisateur(@PathVariable("utilisateurId") Long utilisateurId){
+        utilisateurService.deleteUtilisateur(utilisateurId);}
 
 }

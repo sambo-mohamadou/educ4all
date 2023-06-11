@@ -1,4 +1,4 @@
-package com.poo2hibernate.educ4all.eleve;
+package com.poo2hibernate.educ4all.utilisateur;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Eleve {
+public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eleveId;
@@ -20,7 +20,7 @@ public class Eleve {
     private String eleveMail;
     private String eleveMdp;
 
-    public Eleve(String eleveNom, String eleveMail, String eleveMdp) {
+    public Utilisateur(String eleveNom, String eleveMail, String eleveMdp) {
         this.eleveNom = eleveNom;
         this.eleveMail = eleveMail;
         this.eleveMdp = eleveMdp;
