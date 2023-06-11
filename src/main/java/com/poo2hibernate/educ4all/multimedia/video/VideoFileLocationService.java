@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class VideoFileLocationService {
@@ -50,5 +51,18 @@ public class VideoFileLocationService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return videoRepository.findByLesson(lesson).stream().map(p -> p.getName())
                                                             .toList();
+    }
+
+    public void updateVideo(long videoId, String name, Lesson lesson) {
+        Video video = videoRepository.findById(videoId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if(name != null && name.length() > 0 && !Objects.equals(name, video.getName())) {
+            video.setName(name);
+        }
+
+        if(lesson != null && !Objects.equals(lesson, video.getLesson())) {
+            video.setLesson(lesson);
+        }
     }
 }

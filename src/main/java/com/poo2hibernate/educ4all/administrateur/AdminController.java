@@ -35,6 +35,7 @@ public class AdminController {
 
         adminService.updateAdmin(parseLong(adminId),name,email,password);
     }
+
     @GetMapping(path = "/verify")
     public boolean verifyPassword(@RequestParam("email") String email, @RequestParam("password") String password){
         return adminService.verify(email,password);

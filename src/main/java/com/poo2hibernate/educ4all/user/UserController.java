@@ -27,7 +27,7 @@ public class UserController {
     public void deleteUser(@PathVariable("userId") String userId){userService.deleteUser(parseLong(userId));}
 
     @PutMapping(path = "/gestion/user/update/{userId}")
-    public void updateUser(String userId,
+    public void updateUser(@PathVariable("userId") String userId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String password,
